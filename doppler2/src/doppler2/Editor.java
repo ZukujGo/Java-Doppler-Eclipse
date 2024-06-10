@@ -3,13 +3,13 @@ package doppler2;
 import java.awt.Color;
 
 public class Editor implements Mediator {
-	
+
 	/*
 	 * Klasa ze wszystkimi wywolywanymi metodami
 	 * ktorych uzywa program. Wszystkie operacje
 	 * logiczne dzieja sie tutaj
 	 */
-	
+
 	private BottomPanel bottomPanel;
 	private RightPanel rightPanel;
 	private CenterPanel centerPanel;
@@ -19,6 +19,11 @@ public class Editor implements Mediator {
 	private SimpleSound simpleSound;
 //    private BottomPanel bottomPanel;
 //    private RightPanel rightPanel;
+	private DopplerEffectAnimation dopplerEffectSimulation;
+
+	private SquareWavePlot squareWavePlot;
+
+	private LowerFrequencySquareWavePlot lowerFrequencySquareWavePlot;
 
     public void setBottomPanel(BottomPanel bottomPanel) {
         this.bottomPanel = bottomPanel;
@@ -27,22 +32,35 @@ public class Editor implements Mediator {
     public void setRightPanel(RightPanel rightPanel) {
         this.rightPanel = rightPanel;
     }
-    
+
     public void setCenterPanel(CenterPanel centerPanel) {
         this.centerPanel = centerPanel;
     }
-    
+
     public void setDopplerMaths(DopplerMaths doppler) {
     	this.doppler = doppler;
     }
-    
+
     public void setMenuPanel(MenuPanel menuPanel) {
     	this.menuPanel = menuPanel;
     }
-    
+
     public void setSimpleSound(SimpleSound simpleSound) {
     	this.simpleSound = simpleSound;
     }
+    public void setDopplerEffectAnimation(DopplerEffectAnimation dopplerEffectSimulation){
+    	this.dopplerEffectSimulation = dopplerEffectSimulation;
+    }
+
+	public void setSquareWavePlot(SquareWavePlot squareWavePlot){
+		this.squareWavePlot = squareWavePlot;
+	}
+
+	public void setLowerFrequencySquareWavePlot(LowerFrequencySquareWavePlot lowerFrequencySquareWavePlot)
+	{
+		this.lowerFrequencySquareWavePlot = lowerFrequencySquareWavePlot;
+	}
+
 
 	@Override
 	public void resetEverything() {
@@ -50,15 +68,18 @@ public class Editor implements Mediator {
 		bottomPanel.resetBottomPanel();
 		rightPanel.resetRightPanel();
 //		simpleSound.deleteTempFiles();
+		dopplerEffectSimulation.resetAnimation();
 	}
 
 	@Override
 	public void startAnimationPressed() {
 		// TODO Auto-generated method stub
 		rightPanel.startAnimationPressed();
-//		doppler.dupa();
+		dopplerEffectSimulation.startAnimation();
+
+//		generateWavePressed();
 	}
-	
+
 	@Override
 	public void generateWavePressed() {
 		// TODO Auto-generated method stub
@@ -66,26 +87,28 @@ public class Editor implements Mediator {
 		simpleSound.generateEmittedWave(getSoundFrequency());
 		simpleSound.generateReceivedSound(getSoundFrequency(), returnDopplerFactor());
 		rightPanel.generateWavePressed();
+//		squareWavePlot.showEnlargedPlot();
+
 	}
 
 	@Override
-	public long getSourceVelocity() {
+	public double getSourceVelocity() {
 		// TODO Auto-generated method stub
-		long sourceVelocity = rightPanel.getSourceVelocity();
+		double sourceVelocity = rightPanel.getSourceVelocity();
 		return sourceVelocity;
 	}
 
 	@Override
-	public long getReceiverVelocity() {
+	public double getReceiverVelocity() {
 		// TODO Auto-generated method stub
-		long receiverVelocity = rightPanel.getReceiverVelocity();
+		double receiverVelocity = rightPanel.getReceiverVelocity();
 		return receiverVelocity;
 	}
 
 	@Override
-	public long getSoundFrequency() {
+	public double getSoundFrequency() {
 		// TODO Auto-generated method stub
-		long soundFrequency = rightPanel.getSoundFrequency();
+		double soundFrequency = rightPanel.getSoundFrequency();
 		return soundFrequency;
 	}
 
@@ -135,7 +158,8 @@ public class Editor implements Mediator {
 //	@Override
 //	public void playSound(byte[] generatedSound) {
 //		// TODO Auto-generated method stub
-//		
+//
 //	}
 
 }
+

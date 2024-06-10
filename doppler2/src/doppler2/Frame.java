@@ -19,7 +19,11 @@ public class Frame extends JFrame {
 	private DopplerMaths doppler;
 	private MenuPanel menuPanel;
 	private SimpleSound simpleSound;
-	
+	private DopplerEffectAnimation dopplerEffectSimulation;
+
+    private SquareWavePlot squareWavePlot;
+
+    private LowerFrequencySquareWavePlot lowerFrequencySquareWavePlot;
 	
 	public Frame() {
         setTitle("Efekt Dopplera");
@@ -35,8 +39,10 @@ public class Frame extends JFrame {
         menuPanel = new MenuPanel();
         
         doppler = new DopplerMaths();				// By mozliwe byly jakiekolwiek operacje
-        simpleSound = new SimpleSound();			// trzeba wywolac kazda z klas
-        
+        simpleSound = new SimpleSound();
+        dopplerEffectSimulation = new DopplerEffectAnimation();// trzeba wywolac kazda z klas
+        squareWavePlot = new SquareWavePlot();
+        lowerFrequencySquareWavePlot = new LowerFrequencySquareWavePlot();
         
         bottomPanel.setMediator(mediator);			// Klasy musza dostac finalna instancje mediatora
         rightPanel.setMediator(mediator);			// bo dopiero tutaj, w main, jest ostatecznie wywolywany
@@ -44,6 +50,9 @@ public class Frame extends JFrame {
         menuPanel.setMediator(mediator);
         simpleSound.setMediator(mediator);
         doppler.setMediator(mediator);
+        dopplerEffectSimulation.setMediator(mediator);
+        squareWavePlot.setMediator(mediator);
+        lowerFrequencySquareWavePlot.setMediator((mediator));
         
         if (mediator instanceof Editor) {
             Editor editor = (Editor) mediator;
@@ -52,13 +61,33 @@ public class Frame extends JFrame {
             editor.setCenterPanel(centerPanel);
             editor.setDopplerMaths(doppler);
             editor.setSimpleSound(simpleSound);
+            editor.setDopplerEffectAnimation(dopplerEffectSimulation);
+            editor.setSquareWavePlot(squareWavePlot);
+            editor.setLowerFrequencySquareWavePlot((lowerFrequencySquareWavePlot));
+
         }
+        
+        centerPanel.add(dopplerEffectSimulation);
+
+
+        //DopplerEffectAnimation animationPanel = new DopplerEffectAnimation();
         
         setLayout(new BorderLayout());
         add(bottomPanel, BorderLayout.SOUTH);
         add(rightPanel, BorderLayout.EAST);
         add(centerPanel, BorderLayout.CENTER);
         setJMenuBar(menuPanel);
+        
+        boolean toBeFalse = true;
+        if(toBeFalse == true) {
+        	Editor editor = (Editor) mediator;
+        	editor.resetEverything();
+        	Color primary2 = new Color(55, 55, 55);
+        	Color secondary2 = new Color(220, 220, 220);
+        	Color tertiary2 = new Color(255, 255, 255);
+        	mediator.changeAppMode(primary2, secondary2, tertiary2);
+        	toBeFalse = false;
+        }
 	}
 
 	public static void main(String[] args) {

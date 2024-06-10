@@ -8,8 +8,9 @@ public class DopplerMaths {
 
 	private Mediator mediator;
 	@SuppressWarnings("unused")
-	private long sVel, rVel, sFrq;
+	private double sVel, rVel, sFrq;
 	private double factor = 1;
+	private double waveSpeed;
 	
 	public DopplerMaths() {}
 	
@@ -23,16 +24,29 @@ public class DopplerMaths {
 		rVel = mediator.getReceiverVelocity(); 		//wiec wystarczy, ze napiszesz wzory
 		sFrq = mediator.getSoundFrequency();
 		
-		double sVelDouble = 1;
-		double rVelDouble = 1;
+//		double sVelDouble = 1;
+//		double rVelDouble = 1;
 		
-		sVelDouble = (double) sVel;
-		rVelDouble = (double) rVel;
+//		sVelDouble = (double) sVel;
+//		rVelDouble = (double) rVel;
+		waveSpeed = 340;
 		
 		//tutaj zrob obliczenia dopplera
 		//i zrzutuj je na double
-		
-		if( rVelDouble != 0 && sVelDouble != 0 ) {
+
+		if(sVel < 340)
+		{
+			factor = (waveSpeed + rVel) / (waveSpeed - sVel);
+		}
+		else if(sVel == 340)
+		{
+			factor = 9999999;
+		}
+		else if(sVel > 340)
+		{
+			factor = (waveSpeed + rVel) / ( sVel - waveSpeed );
+		}
+		/*if( rVelDouble != 0 && sVelDouble != 0 ) {
 			factor = sVelDouble/rVelDouble;
 		}else if( rVelDouble == 0 && sVelDouble != 0 ){
 			factor = 1.5;			
@@ -40,7 +54,7 @@ public class DopplerMaths {
 			factor = 0.5;
 		}else if(sVelDouble == 0 && rVelDouble == 0 ) {
 			factor = 1;
-		}
+		}*/
 		
 		
 //		System.out.println("\nPrędkość źródła doppler: " + sVel);

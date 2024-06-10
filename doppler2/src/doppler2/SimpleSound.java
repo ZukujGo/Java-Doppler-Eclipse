@@ -12,70 +12,10 @@ public class SimpleSound {
 	
 	@SuppressWarnings("unused")
 	private Mediator mediator;
-//	private File emittedSoundTemp, receivedSoundTemp;
 	private File emittedSoundPerm, receivedSoundPerm;
 
-//	public void generatedEmittedWave(long freq) {
-//		
-//		int duration = 5000;			//5000ms = 5s
-//		float sampleRate = 44100;		//najwyzsze probkowanie, najlepszy dzwiek
-//		
-//		byte[] buf = new byte[2 * duration * (int) (sampleRate / 1000)]; 	//dzielenie przez 1000 bo duration jest w milisekundach
-//		for (int i = 0; i < buf.length; i += 2) {
-//			double angle = i / (sampleRate / freq ) * 2 * Math.PI;
-//			short sample = (short) (Math.sin(angle) * Short.MAX_VALUE);
-//			buf[i] = (byte) (sample & 0xFF);
-//			buf[i + 1] = (byte) ((sample >> 8 ) & 0xFF);
-//		}
-//		
-////	    int duration = 5000; // 5000ms = 5s
-////	    float sampleRate = 44100; // najwyższe próbkowanie, najlepszy dźwięk
-////	    int numIntervals = 10; // liczba interwałów
-////	    byte[] buf = new byte[2 * duration * (int) (sampleRate / 1000)]; // dzielenie przez 1000 bo duration jest w milisekundach
-////	    int intervalLength = buf.length / numIntervals; // długość pojedynczego interwału
-////
-////	    
-////	    int idx = 0;
-////	    for (int interval = 0; interval < numIntervals; interval++) {
-////	        double startFreq, endFreq;
-////	        if (interval % 2 == 0) {
-////	            startFreq = 5000;
-////	            endFreq = 7000;
-////	        } else {
-////	            startFreq = 7000;
-////	            endFreq = 5000;
-////	        }
-////	        for (int i = 0; i < intervalLength; i += 2) {
-////	            double t = (double) i / intervalLength; // współczynnik zmiany częstotliwości w interwale
-////	            double freq = startFreq + t * (endFreq - startFreq); // interpolacja liniowa częstotliwości
-////	            double angle = i / (sampleRate / freq) * 2 * Math.PI;
-////	            short sample = (short) (Math.sin(angle) * Short.MAX_VALUE);
-////	            buf[idx++] = (byte) (sample & 0xFF);
-////	            buf[idx++] = (byte) ((sample >> 8) & 0xFF);
-////	        }
-////	    }
-//		
-//		emittedSoundTemp = new File("emitted_sound_temp.wav");
-//		try {
-//			
-//            FileOutputStream fileOutputStream = new FileOutputStream(emittedSoundTemp);
-//
-//            AudioFormat audioFormat = new AudioFormat(sampleRate, 16, 1, true, false);
-//
-//            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buf);
-//            AudioInputStream audioInputStream = new AudioInputStream(byteArrayInputStream, audioFormat, buf.length / 2);
-//
-//            AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, fileOutputStream);
-//            fileOutputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//        	emittedSoundTemp.deleteOnExit();
-//        }
-//		
-//	}
 	
-    public byte[] generateEmittedWave(long freq) {
+    public byte[] generateEmittedWave(double freq) {
         int duration = 5000; // 5000ms = 5s
         float sampleRate = 44100; // najwyższe próbkowanie, najlepszy dźwięk
 
@@ -90,38 +30,7 @@ public class SimpleSound {
     }
 	
 	
-//	public void generateReceivedSound(long freq, double factor) {
-//		int duration = 5000;
-//		float sampleRate = 44100;
-//		
-//		byte[] buf = new byte[2 * duration * (int) (sampleRate / 1000)]; //dzielenie przez 1000 bo duration jest w milisekundach
-//		for (int i = 0; i < buf.length; i += 2) {
-//			double angle = i / (sampleRate / (freq * factor)) *2 * Math.PI;
-//			short sample = (short) (Math.sin(angle) * Short.MAX_VALUE);
-//			buf[i] = (byte) (sample & 0xFF);
-//			buf[i + 1] = (byte) ((sample >> 8 ) & 0xFF);
-//		}
-//		
-//		receivedSoundTemp = new File("received_sound_temp.wav");
-//		try {
-//           
-//            FileOutputStream fileOutputStream = new FileOutputStream(receivedSoundTemp);
-//
-//            AudioFormat audioFormat = new AudioFormat(sampleRate, 16, 1, true, false);
-//
-//            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buf);
-//            AudioInputStream audioInputStream = new AudioInputStream(byteArrayInputStream, audioFormat, buf.length / 2);
-//
-//            AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, fileOutputStream);
-//            fileOutputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//        	receivedSoundTemp.deleteOnExit();
-//        }
-//	}
-	
-    public byte[] generateReceivedSound(long freq, double factor) {
+    public byte[] generateReceivedSound(double freq, double factor) {
         int duration = 5000;
         float sampleRate = 44100;
 
@@ -135,7 +44,7 @@ public class SimpleSound {
         return buf;
     }
 	
-	public void saveSoundsToFile(long freq, double factor) {
+	public void saveSoundsToFile(double freq, double factor) {
 		int duration = 5000;
 		float sampleRate = 44100;
 		
@@ -188,34 +97,6 @@ public class SimpleSound {
         }
     }
 	
-//	public void deleteTempFiles() {				//usuwanie plikow TMP wywolywane przyciskiem RESET
-//		if (receivedSoundTemp != null && emittedSoundTemp != null) {
-//		receivedSoundTemp.delete();
-//		emittedSoundTemp.delete();
-//		}
-//	}
-	
-//	public void playEmittedSound() {			//odtwarzanie dzwieku emitowanego, z przycisku
-//        try {
-//            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(emittedSoundTemp);
-//            Clip clip = AudioSystem.getClip();
-//            clip.open(audioInputStream);
-//            clip.start();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//	}
-//	
-//	public void playReceivedSound() {			// odtwarzanie dzwieku odbieranego, z przycisku
-//        try {
-//            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(receivedSoundTemp);
-//            Clip clip = AudioSystem.getClip();
-//            clip.open(audioInputStream);
-//            clip.start();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//	}
 	
     public void playSound(byte[] soundData) {
         try {

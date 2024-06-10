@@ -11,9 +11,9 @@ public interface Mediator {
 	void resetEverything();
 	void startAnimationPressed();
 	void generateWavePressed();
-	long getSourceVelocity();
-	long getReceiverVelocity();
-	long getSoundFrequency();
+	double getSourceVelocity();
+	double getReceiverVelocity();
+	double getSoundFrequency();
 //	void pokazDopplra();
 	void changeAppMode(Color X, Color Y, Color Z);
 	double returnDopplerFactor();
@@ -23,3 +23,4 @@ public interface Mediator {
 //	void playSound(byte[] generatedSound);
 	
 }
+
