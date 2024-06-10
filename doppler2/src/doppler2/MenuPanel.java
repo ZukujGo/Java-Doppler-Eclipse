@@ -19,8 +19,8 @@ public class MenuPanel extends JMenuBar {
 	private JMenuItem darkMode, lightMode, rainbowMode;
 	
 	private Color primary1 = new Color(0, 0, 0);
-	private Color secondary1 = new Color(66, 66, 66);
-	private Color tertiary1 = new Color(106, 106, 106);
+	private Color secondary1 = new Color(86, 86, 86);
+	private Color tertiary1 = new Color(126, 126, 126);
 	
 	private Color primary2 = new Color(55, 55, 55);
 	private Color secondary2 = new Color(220, 220, 220);
@@ -49,7 +49,10 @@ public class MenuPanel extends JMenuBar {
         contributionInfo.addActionListener(e -> {
             JOptionPane.showMessageDialog(this,
                     "GUI: Juliusz Nowak\n" +
-                    "Wejścia użytkownika: Juliusz Nowak",
+                    "Logika: Juliusz Nowak\n"+
+                    "Animacja: Barnaba Smycz\n"+
+                    "Wykresy: Barnaba Smycz\n"+
+                    "Dzwiek: Juliusz Nowak\n",
                     "Informacje o wkładzie",
                     JOptionPane.INFORMATION_MESSAGE);
         });
@@ -64,7 +67,7 @@ public class MenuPanel extends JMenuBar {
 
         projectInfo.add(authorInfo);
         projectInfo.add(contributionInfo);
-        projectInfo.add(progressInfo);
+//        projectInfo.add(progressInfo);
                 
         colorChooser = new JMenu("Motyw aplikacji");
 		
@@ -87,13 +90,6 @@ public class MenuPanel extends JMenuBar {
         colorChooser.add(darkMode);
         colorChooser.add(lightMode);
         colorChooser.add(rainbowMode);
-        
-//        boolean x = true;
-//        
-//        if(x == true) {
-//        	mediator.changeAppMode(primary1, secondary1, tertiary1);
-//        	x = false;
-//        }
         
         add(projectInfo);
         add(colorChooser);
